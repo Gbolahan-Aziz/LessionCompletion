@@ -10,7 +10,7 @@ pipelines:
       git:
         type: git
         url: https://github.com/Gbolahan-Aziz/LessionCompletion.git
-        branch: main
+        branch: master
     stages:
       - checkout:
           jobs:
