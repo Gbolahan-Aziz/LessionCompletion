@@ -1,0 +1,49 @@
+format_version: 10
+pipelines:
+  LessionCompletion:
+    group: "deployments"
+    label_template: "${COUNT}"
+    parameters:
+      DRY_RUN: "false"   # Set before running pipeline (true/false)
+      ENVIRONMENT: "dev"  # Set before running pipeline (dev/staging)
+    materials:
+      git:
+        type: git
+        url: https://github.com/Gbolahan-Aziz/LessionCompletion.git
+        branch: main
+    stages:
+      - checkout:
+          jobs:
+            checkout_code:
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Cloning repository https://github.com/Gbolahan-Aziz/LessionCompletion.git"]
+      - deploy:
+          jobs:
+            deploy_project:
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Deploying project to $ENVIRONMENT (Dry Run: $DRY_RUN)"]
+      - test:
+          jobs:
+            run_tests:
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Running automated tests"]
+      - notify:
+          jobs:
+            slack_notification:
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Notifying team on Slack about deployment"]
+      - report:
+          jobs:
+            grafana_notification:
+              tasks:
+                - exec:
+                    command: echo
+                    arguments: ["Sending deployment status to Grafana"]
